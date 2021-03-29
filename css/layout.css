@@ -1,0 +1,41 @@
+body{
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eee;
+}
+main{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header{
+    height: 350px;
+    background-color:#43cea2 ;
+    background: linear-gradient(
+        90deg,
+        #43cea2 0%,
+        #185a9d 100%
+    );
+
+}
+/* 13f3a8
+056948 */
+
+
+footer{
+    margin-top: 75px;
+    height: 100px;
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    background-color: tomato;
+}
+
+footer p{
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
