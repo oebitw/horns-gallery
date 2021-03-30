@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/modules.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
+    <script id="imageTemplate" type="text/x-mustach-template">
+      <section class={{keyword}}>
+        <h2>{{title}}</h2>
+        <img src="{{image_url}}" alt="">
+        <h3>Keyword: {{keyword}}</h3>
+        <!-- <p> Description: {{description}} </p> -->
+        <h4> Horns: {{horns}} </h4>
+
+      </section>
+    </script>
   </head>
 
   <body>
@@ -20,6 +31,8 @@
 
         <div class="buttons">
 
+          <button class="white" id='page1'>First Page</button>
+          <button class="white" id="page2">Second Page</button>
           <button id="sortKeyword"> Sort By Keyword </button>
           <button id="sortHorns"> Sort By Number of HORNS </button>
   
@@ -30,15 +43,15 @@
     
     </header>
     <main>
-      <section class="photo-template">
+      <!-- <section class="photo-template">
 
         <h2></h2>
         <img src="" alt="">
         <h3> Keyword: </h3>
-        <!-- <p> Description: </p> -->
+        <p> Description: </p>
         <h4> Number of Horns:</h4>
 
-      </section>
+      </section> -->
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
