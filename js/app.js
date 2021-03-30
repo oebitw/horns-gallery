@@ -6,7 +6,7 @@
 
 let all = [];
 let optionsArr=[];
-
+let pageNumber = 1;
 
 
 
@@ -14,21 +14,21 @@ let optionsArr=[];
 ///// Get Data From JSON ////
 ////////////////////////////
 
-getData();
+getData(pageNumber);
 
-function getData (){
+function getData (pageNumbers){
 
-  $.get(`data/page-1.json`, function(data){
+  $.get(`data/page-${pageNumbers}.json`, function(data){
     data.forEach(element => {
       let newImg = new Gallery (element.image_url, element.title, element.description, element.keyword, element.horns);
       newImg.render();
     });
     options(optionsArr);
-    $('.photo-template').remove();
-  })
+  });
 
 
 }
+
 
 //////////////////////////////////////
 ///// Constructor and prototypes ////
@@ -52,14 +52,13 @@ function Gallery (image_url, title, description, keyword, horns ){
 
 Gallery.prototype.render = function(){
 
-  let imageBox= $('.photo-template').clone().attr('class', this.keyword);
-  imageBox.find('h2').text(this.title);
-  imageBox.find('img').attr('src', this.image_url);
-  imageBox.find('h3').text(`Keyword: ${this.keyword}`);
-  // imageBox.find('p').text(` ${this.description}`);
-  imageBox.find('h4').text(`Number Of Horns: ${this.horns}`);
-  imageBox.appendTo('main');
-}
+  let galleryBox = $('#imageTemplate').html();
+  let renderedBox =  Mustache.render(galleryBox,this, console.log(this));
+  $('main').append(renderedBox);
+
+};
+
+
 
 
 
@@ -73,7 +72,7 @@ Gallery.prototype.render = function(){
 
 function options(array){
 
-  let preventRepeat = Array.from(new Set(array))
+  let preventRepeat = Array.from(new Set(array));
   console.log(preventRepeat);
 
   preventRepeat.forEach(
@@ -82,7 +81,7 @@ function options(array){
       $('select').append(`<option value="${element}">${element}</option>`);
 
     }
-  )
+  );
 
 }
 
@@ -117,6 +116,8 @@ function handleSubmitKeyword(){
   });
 
 
+
+
   $('section').fadeOut(300);
 
 
@@ -125,7 +126,7 @@ function handleSubmitKeyword(){
 
   for(let i=0; i<all.length; i++){
     const parentElement = document.createElement('section');
-    mainPage.appendChild(parentElement)
+    mainPage.appendChild(parentElement);
 
     const keywordElement = document.createElement('h2');
     parentElement.appendChild(keywordElement);
@@ -143,7 +144,6 @@ function handleSubmitKeyword(){
     parentElement.appendChild(numHorns);
     numHorns.textContent=`Number Of Horns: ${all[i].horns}`;
   }
-
 
 }
 
@@ -174,7 +174,7 @@ function handleSubmitHorns(){
 
   for(let i=0; i<all.length; i++){
     const parentElement = document.createElement('section');
-    mainPage.appendChild(parentElement)
+    mainPage.appendChild(parentElement);
 
     const hornsElement = document.createElement('h2');
     parentElement.appendChild(hornsElement);
@@ -203,8 +203,31 @@ function handleSubmitHorns(){
 
 }
 
+//////////////////
+///// Pages  ////
+////////////////
 
+// Add event Listener
+$('#page1').click(selectedPage(1));
+$('#page2').click(selectedPage(2));
 
+function selectedPage (number){
+
+  return function () {
+
+    all = [];
+    console.log('secondPageAll', all);
+    optionsArr = [];
+    console.log('secondPageOptions', optionsArr);
+    $('section').fadeOut(300, function() { $(this).remove(); });
+    $('option').not(':eq( 0 )').remove();
+    pageNumber = number;
+    getData(pageNumber);
+    console.log(optionsArr);
+
+  };
+
+}
 
 
 //////////////////
@@ -212,5 +235,5 @@ function handleSubmitHorns(){
 ////////////////
 
 console.log(all);
-console.log(optionsArr)
+console.log(optionsArr);
 
